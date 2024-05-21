@@ -28,13 +28,17 @@
             <p><span class="table-heading">Subject:</span>{{ student.subject }}</p>
             <p><span class="table-heading">Tuition fees:</span>{{ student.tuition_fees }}</p>
             <p><span class="table-heading">Timing:</span>{{ student.timing }}</p>
-            <p><span class="table-heading">Address:</span>{{ student.Address }}</p>
+            <p><span class="table-heading">Address:</span>{{ student.address }}</p>
             <!-- Apply Now button -->
             <div class="apply-button">
-                <form action="{{ url_for('apply_now') }}" method="post">
-                    <input type="hidden" name="student_id" value="{{ student.id }}">
-                    <button type="submit" class="apply-now-btn">Apply Now</button>
-                </form>
+                {% if student.id in applied_student_ids %}
+                    <button type="button" class="applied-btn" disabled>Applied</button>
+                {% else %}
+                    <form action="{{ url_for('apply_now') }}" method="post">
+                        <input type="hidden" name="student_id" value="{{ student.id }}">
+                        <button type="submit" class="apply-now-btn">Apply Now</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
@@ -54,6 +58,5 @@
             <a href="{{ url_for('feeds', page=students.next_num) }}">Next</a>
         {% endif %}
     </div>
-   
 </body>
 </html>

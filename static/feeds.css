@@ -80,9 +80,8 @@ body {
   text-align: center;
 }
 
-.apply-button .apply-now-btn {
+.apply-button .apply-now-btn, .apply-button .applied-btn {
   display: inline-block;
-  background-color: #04AA6D;
   color: #fff;
   padding: 10px 20px;
   font-size: 16px;
@@ -93,9 +92,17 @@ body {
   transition: background-color 0.3s;
 }
 
+.apply-button .apply-now-btn {
+  background-color: #04AA6D;
+}
+
 .apply-button .apply-now-btn:hover {
   background-color: #333;
-  color: #fff;
+}
+
+.apply-button .applied-btn {
+  background-color: #808080; /* Gray background for applied button */
+  cursor: default;
 }
 
 .student-box p, .tutor-box p {

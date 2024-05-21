@@ -7,27 +7,39 @@
 </head>
 <body>
     <h2>Signup</h2>
+    
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
     <form method="POST">
         {{ form.hidden_tag() }}
         <p>
             {{ form.email.label }}<br>
             {{ form.email(size=32) }}<br>
             {% for error in form.email.errors %}
-                <span>{{ error }}</span>
+                <span class="error">{{ error }}</span>
             {% endfor %}
         </p>
         <p>
             {{ form.password.label }}<br>
             {{ form.password(size=32) }}<br>
             {% for error in form.password.errors %}
-                <span>{{ error }}</span>
+                <span class="error">{{ error }}</span>
             {% endfor %}
         </p>
         <p>
             {{ form.confirm_password.label }}<br>
             {{ form.confirm_password(size=32) }}<br>
             {% for error in form.confirm_password.errors %}
-                <span>{{ error }}</span>
+                <span class="error">{{ error }}</span>
             {% endfor %}
         </p>
         <p>{{ form.submit() }}</p>
