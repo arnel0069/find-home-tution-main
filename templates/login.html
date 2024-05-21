@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}<br>
+            {% for error in form.email.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>

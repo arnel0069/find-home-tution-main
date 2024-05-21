@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 100px;
+  background-color: #04aa6d64;
+}
+
+.message {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.redirect-info {
+  font-size: 16px;
+  color: #888;
+}
+
+#timer {
+  font-size: 20px;
+  margin-top: 20px;
+}

@@ -1,0 +1,256 @@
+body {
+  font-family: 'Times New Roman', Times, serif;
+  margin: 0;
+  padding: 0;
+  background-color: #04aa6d64;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 40px;
+}
+
+form {
+  max-width: 500px;
+  margin: auto;
+  padding: 40px;
+  background-color: transparent;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(16, 16, 0);
+  font-size: 18px;
+}
+
+label {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 25px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="time"] {
+  width: calc(100% - 10px);
+  padding: 10px;
+  margin: 7px;
+  border: 0;
+  border-bottom: 1px black solid;
+  font-size: 25px;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: transparent;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  background-color: #04AA6D;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 25px;
+  margin-top: 25px;
+}
+
+input[type="submit"]:hover {
+  background-color: #10b176;
+}
+
+.imagebutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.imagebutton label {
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 160px;
+  height: 160px;
+  cursor: pointer;
+  position: relative;body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #04aa6d64;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    font-size: 40px;
+  }
+  
+  form {
+    max-width: 90%;
+    margin: auto;
+    padding: 40px;
+    background-color: transparent;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(16, 16, 0, 0.3);
+    font-size: 18px;
+  }
+  
+  label {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 25px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="time"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 7px;
+    border: 0;
+    border-bottom: 1px black solid;
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: transparent;
+  }
+  
+  input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #04AA6D;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 25px;
+    margin-top: 25px;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #10b176;
+  }
+  
+  .imagebutton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .imagebutton label {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .imagebutton label::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: opacity 0.3s;
+    opacity: 0;
+    border-radius: 50%;
+  }
+  
+  .imagebutton label:hover::after {
+    opacity: 1;
+  }
+  
+  .imagebutton label:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .imagebutton img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-picture-label {
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
+  
+  /* Media Queries for Mobile */
+  @media (max-width: 768px) {
+    form {
+      padding: 20px;
+    }
+  
+    label {
+      font-size: 20px;
+    }
+  
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"] {
+      font-size: 20px;
+    }
+  
+    input[type="submit"] {
+      font-size: 20px;
+    }
+  
+    .imagebutton label {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .profile-picture-label {
+      font-size: 20px;
+    }
+  }
+  
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imagebutton label::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: opacity 0.3s;
+  opacity: 0;
+  border-radius: 50%;
+}
+
+.imagebutton label:hover::after {
+  opacity: 1;
+}
+
+.imagebutton label:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.imagebutton img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-picture-label {
+  font-size: 25px;
+  margin-bottom: 10px;
+}

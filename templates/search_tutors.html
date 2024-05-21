@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Feeds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='search_tutors.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+   <!-- Navbar -->
+   <div class="navbar">
+       <a class="{{ 'active' if request.path == url_for('home') else '' }}" href="{{ url_for('home') }}"><i class="fa fa-fw fa-home"></i> Home</a>
+       <a class="{{ 'active' if request.path == url_for('feeds') else '' }}" href="{{ url_for('feeds') }}"><i class="fa-solid fa-magnifying-glass"></i> Feeds</a>
+       <a class="{{ 'active' if request.path == url_for('search_tutors') else '' }}" href="{{ url_for('search_tutors') }}"><i class="fa-solid fa-chalkboard-user"></i> Tutors</a>
+       <div class="rh"> 
+           <a href="{{ url_for('contactus') }}"><i class="fa fa-fw fa-envelope"></i> Contact Us</a>
+       </div>
+   </div>
+   <div class="container">
+       {% for tutor in tutors.items %}
+       <!-- Each tutor's details as a grid item -->
+       <div class="tutor-box">
+           <div class="profile-pic-container">
+               {% if tutor.profile_picture %}
+               <img src="{{ url_for('uploaded_file', filename=tutor.profile_picture) }}" alt="Profile Picture" class="profile-pic">
+               {% endif %}
+           </div>
+           <div class="tutor-details">
+               <p><span class="table-heading">Name:</span> {{ tutor.name }}</p>
+               <p><span class="table-heading">Qualification:</span> {{ tutor.qualification }}</p>
+               <p><span class="table-heading">Experience:</span> {{ tutor.experience }}</p>
+               <p><span class="table-heading">Email:</span> {{ tutor.email }}</p>
+               <p><span class="table-heading">Phone:</span> {{ tutor.phone }}</p>
+               <!-- Display CV link if available -->
+               {% if tutor.cv %}
+               <p><span class="table-heading">CV:</span> <a href="{{ url_for('uploaded_file', filename=tutor.cv) }}" class="cv-button" target="_blank">Download CV</a></p>
+               {% endif %}
+           </div>
+       </div>
+       {% endfor %}
+   </div>
+   <!-- Pagination Controls -->
+   <div class="pagination">
+       {% if tutors.has_prev %}
+       <a href="{{ url_for('search_tutors', page=tutors.prev_num) }}">&laquo; Previous</a>
+       {% endif %}
+       {% for page_num in tutors.iter_pages() %}
+       {% if page_num %}
+       <a href="{{ url_for('search_tutors', page=page_num) }}" class="{{ 'active' if page_num == tutors.page else '' }}">{{ page_num }}</a>
+       {% else %}
+       <span>...</span>
+       {% endif %}
+       {% endfor %}
+       {% if tutors.has_next %}
+       <a href="{{ url_for('search_tutors', page=tutors.next_num) }}">Next &raquo;</a>
+       {% endif %}
+   </div>
+</body>
+</html>

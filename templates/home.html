@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Home</title>
+</head>
+<body>
+    <div class="navbar">
+        <a class="{{ 'active' if request.path == url_for('home') else '' }}" href="{{ url_for('home') }}"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a class="{{ 'active' if request.path == url_for('feeds') else '' }}" href="{{ url_for('feeds') }}"><i class="fa-solid fa-magnifying-glass"></i> Feeds</a>
+        <a class="{{ 'active' if request.path == url_for('search_tutors') else '' }}" href="{{ url_for('search_tutors') }}"><i class="fa-solid fa-chalkboard-user"></i> Tutors</a>
+
+        <!-- Authentication Links -->
+
+        <div class="rh"> 
+            <a href="{{ url_for('contactus') }}"><i class="fa fa-fw fa-envelope"></i> Contact Us</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="{{ url_for('signup') }}"><i class="fas fa-user-plus"></i> Signup</a>
+        {% endif %}
+
+        </div>
+    </div>
+
+    <div class="main">
+        <p>We are dedicated to offering you the finest educators and professional career advisors, ensuring an unparalleled level of excellence in our service.</p>
+        
+        <a href="{{ url_for('tutor') }}">Tutor Registration</a>
+        <a href="{{ url_for('student') }}">Student Registration</a>
+    </div>
+
+    <div class="footer">
+        <p>"The beautiful thing about learning is that no one can take it away from you." - B.B. King</p>
+    </div>
+
+    <script>
+        // Auto-reload the page every 30 seconds
+        setInterval(function() {
+            location.reload();
+        }, 30000);
+    </script>
+</body>
+</html>
