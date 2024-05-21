@@ -12,6 +12,8 @@ from wtforms.validators import DataRequired, Length, EqualTo
 import logging
 from flask_wtf.csrf import generate_csrf
 import logging
+from flask import session
+from sqlalchemy.exc import IntegrityError
 
 
 app = Flask(__name__)
@@ -103,18 +105,28 @@ def paginate(records, page, per_page=8):
     end_index = start_index + per_page
     return records[start_index:end_index]
 
-# Routes
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
     if form.validate_on_submit():
+        existing_user = User.query.filter_by(email=form.email.data).first()
+        if existing_user:
+            flash('Email address already exists. Please use a different email.', 'danger')
+            return redirect(url_for('signup'))  # Redirect back to the signup page
         hashed_password = generate_password_hash(form.password.data)
         new_user = User(email=form.email.data, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash('Account created successfully!', 'success')
-        return redirect(url_for('login'))
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Account created successfully!', 'success')
+            return redirect(url_for('login'))
+        except IntegrityError:
+            db.session.rollback()
+            flash('An error occurred while creating your account. Please try again.', 'danger')
+            return redirect(url_for('signup'))  # Redirect back to the signup page
     return render_template('signup.html', form=form)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -141,6 +153,7 @@ def home():
     response = make_response(render_template('home.html'))
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     return response
+
 
 @app.route('/student', methods=['GET', 'POST'])
 def student():
@@ -243,7 +256,6 @@ def feeds():
     return render_template('feeds.html', students=students, applied_student_ids=applied_student_ids, csrf_token=csrf_token)
 
 
-@app.route('/apply_now', methods=['POST'])
 @app.route('/apply_now', methods=['POST'])
 @login_required
 def apply_now():
