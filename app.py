@@ -11,10 +11,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo
 import logging
 from flask_wtf.csrf import generate_csrf
-import logging
-from flask import session
 from sqlalchemy.exc import IntegrityError
-
 
 app = Flask(__name__)
 
@@ -64,7 +61,6 @@ class Tutor(db.Model):
     address = db.Column(db.String(100), nullable=False)
     cv = db.Column(db.String(255))
     profile_picture = db.Column(db.String(255))
-    user = db.relationship('User', backref=db.backref('tutors', lazy=True))
 
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -105,7 +101,6 @@ def paginate(records, page, per_page=8):
     end_index = start_index + per_page
     return records[start_index:end_index]
 
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
@@ -126,7 +121,6 @@ def signup():
             flash('An error occurred while creating your account. Please try again.', 'danger')
             return redirect(url_for('signup'))  # Redirect back to the signup page
     return render_template('signup.html', form=form)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -153,7 +147,6 @@ def home():
     response = make_response(render_template('home.html'))
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     return response
-
 
 @app.route('/student', methods=['GET', 'POST'])
 def student():
@@ -185,6 +178,7 @@ def student():
     return render_template('student.html')
 
 @app.route('/tutor', methods=['GET', 'POST'])
+@login_required  # Ensure the user is logged in
 def tutor():
     if request.method == 'POST':
         name = request.form['name']
@@ -214,8 +208,9 @@ def tutor():
                 profile_picture_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_picture_filename))
                 profile_picture_path = profile_picture_filename
 
+        # Ensure user_email is set to the current user's email
         new_tutor = Tutor(
-            user_email=current_user.email,  # Add user_email here
+            user_email=current_user.email,  # Set user_email to the logged-in user's email
             name=name,
             father_name=father_name,
             phone=phone,
@@ -240,8 +235,8 @@ def tutor():
 def thankyou():
     return render_template('thankyou.html')
 
-
 @app.route('/feeds')
+@login_required  # Ensure the user is logged in
 def feeds():
     page = request.args.get('page', 1, type=int)
     students = Student.query.paginate(page=page, per_page=10)
@@ -254,7 +249,6 @@ def feeds():
     
     csrf_token = generate_csrf()
     return render_template('feeds.html', students=students, applied_student_ids=applied_student_ids, csrf_token=csrf_token)
-
 
 @app.route('/apply_now', methods=['POST'])
 @login_required
@@ -276,7 +270,6 @@ def apply_now():
         else:
             flash('Error: Student not found.', 'danger')
         return redirect(url_for('feeds'))
-
 
 @app.route('/search_tutors', methods=['GET'])
 def search_tutors():
