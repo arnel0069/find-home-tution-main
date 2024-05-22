@@ -1,4 +1,8 @@
 Flask
 Flask-SQLAlchemy
 Flask-Migrate
+Flask-Login
+Flask-WTF
+WTForms
+Werkzeug
 Gunicorn
