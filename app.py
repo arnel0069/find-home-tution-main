@@ -149,6 +149,7 @@ def home():
     return response
 
 @app.route('/student', methods=['GET', 'POST'])
+@login_required
 def student():
     if request.method == 'POST':
         name = request.form['name']
@@ -236,8 +237,9 @@ def thankyou():
     return render_template('thankyou.html')
 
 @app.route('/feeds')
-@login_required  # Ensure the user is logged in
+@login_required
 def feeds():
+    
     page = request.args.get('page', 1, type=int)
     students = Student.query.paginate(page=page, per_page=10)
     
@@ -272,6 +274,7 @@ def apply_now():
         return redirect(url_for('feeds'))
 
 @app.route('/search_tutors', methods=['GET'])
+@login_required
 def search_tutors():
     page = request.args.get('page', 1, type=int)
     tutors = Tutor.query.paginate(page=page, per_page=9)

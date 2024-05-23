@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="10;url={{ url_for('feeds') }}">
+  <meta http-equiv="refresh" content="3;url={{ url_for('home') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Success</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='thankyou.css') }}">
@@ -12,12 +12,12 @@
     <p>Your record has been submitted successfully!</p>
   </div>
   <div class="redirect-info">
-    <p>If you are not redirected automatically, <a href="{{ url_for('feeds') }}">click here</a>.</p>
+    <p>If you are not redirected automatically, <a href="{{ url_for('home') }}">click here</a>.</p>
   </div>
   <div id="timer"></div>
   <script>
     function countdown() {
-      var seconds = 5;
+      var seconds = 3;
       var timer = setInterval(function() {
         document.getElementById("timer").textContent = "Redirecting in " + seconds + " seconds...";
         seconds--;
